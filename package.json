@@ -2,7 +2,7 @@
   "name": "fb-downloader-scrapper",
   "version": "1.0.0",
   "description": "Scrap data from a FB Downloader website and get direct url links from your media",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
     "test": "node src/test.js"
