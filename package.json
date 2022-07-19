@@ -4,7 +4,8 @@
   "description": "Scrap data from a FB Downloader website and get direct url links from your media",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "test": "node src/test.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   "homepage": "https://github.com/victorsouzaleal/fb-downloader-scrapper#readme",
   "dependencies": {
     "axios": "^0.27.2",
-    "cheerio": "^1.0.0-rc.12"
+    "cheerio": "^1.0.0-rc.12",
+    "qs": "^6.11.0"
   }
 }
