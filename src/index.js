@@ -9,13 +9,13 @@ module.exports = fbDownloader = async (url)=>{
         axios({
             url : BASE_URL
         }).then((page)=>{
-            let $ = cheerio.load(page.data)
-            eval($("body > div.container-app > script").text())
-             //GET SCRAPPER DATA
+            let $ = cheerio.load(page.data), code = $("body > div.container-app > script").text()
+            let token = new Function(`${code}; return {k_token, k_exp};`)()
+            //GET SCRAPPER DATA
             axios({
                 method: 'post',
                 url : `${BASE_URL}/api/ajaxSearch`,
-                data : `k_exp=${k_exp}&k_token=${k_token}&q=${url}`
+                data : `k_exp=${token.k_exp}&k_token=${token.k_token}&q=${url}`
             }).then((response)=>{
                 let $ = cheerio.load(response.data.data), download = []
                 $("#fbdownloader > div.tab-wrap > div:nth-child(5) > table > tbody > tr").each(function (i, elem){
