@@ -39,6 +39,7 @@ module.exports = fbDownloader = async (url) => {
           .then((response) => {
             let $ = cheerio.load(response.data.data),
               download = [];
+            const thumbnailSrc = $('.thumbnail .image-fb img').attr('src');
             $('#fbdownloader > div.tab-wrap > div:nth-child(5) > table > tbody > tr').each(function (i, elem) {
               let trElement = $(elem);
               let tds = trElement.children();
@@ -54,7 +55,8 @@ module.exports = fbDownloader = async (url) => {
             resolve({
               success: true,
               video_length: util.convertTime($('div.clearfix > p').text().trim()),
-              download
+              download,
+              thumbnail: thumbnailSrc
             });
           })
           .catch((e) => {
