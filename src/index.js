@@ -5,6 +5,7 @@ const util = require('./util');
 module.exports = fbDownloader = async (url) => {
   return new Promise((resolve, reject) => {
     const BASE_URL = 'https://fdownloader.net';
+    const API_ENDPOINT = 'https://v3.fdownloader.net/api/ajaxSearch';
     //GET TOKEN
     axios({
       url: BASE_URL,
@@ -28,8 +29,12 @@ module.exports = fbDownloader = async (url) => {
         //GET SCRAPPER DATA
         axios({
           method: 'post',
-          url: `${BASE_URL}/api/ajaxSearch`,
-          data: params
+          url: `${API_ENDPOINT}?lang=en`,
+          data: params,
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:123.0) Gecko/20100101 Firefox/123.0',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          }
         })
           .then((response) => {
             let $ = cheerio.load(response.data.data),
