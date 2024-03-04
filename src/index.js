@@ -16,11 +16,20 @@ module.exports = fbDownloader = async (url) => {
         let $ = cheerio.load(page.data),
           code = $('body > div.container-app > script').text();
         let token = new Function(`${code}; return {k_token, k_exp};`)();
+
+        const params = new URLSearchParams({
+          k_exp: token.k_exp,
+          k_token: token.k_token,
+          q: url,
+          lang: 'en',
+          web: 'fdownloader.net',
+          v: 'v2'
+        });
         //GET SCRAPPER DATA
         axios({
           method: 'post',
           url: `${BASE_URL}/api/ajaxSearch`,
-          data: `k_exp=${token.k_exp}&k_token=${token.k_token}&q=${url}`
+          data: params
         })
           .then((response) => {
             let $ = cheerio.load(response.data.data),
