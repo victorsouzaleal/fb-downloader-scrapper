@@ -1,7 +1,7 @@
-const fbDownloader = require("./index")
+const getFbVideoInfo = require("./index")
 
 const test = async url =>{
-    return await fbDownloader(url)
+    return await getFbVideoInfo(url)
 }
 
 // TEST
