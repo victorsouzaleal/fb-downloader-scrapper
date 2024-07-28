@@ -2,7 +2,7 @@ const axios = require("axios")
 const cheerio = require("cheerio")
 const util = require("./util")
 
-module.exports = getFbVideoInfo = async (videoUrl, cookie, useragent)=>{
+module.exports = async function getFbVideoInfo(videoUrl, cookie, useragent) {
     return new Promise((resolve, reject)=>{
         const headers = {
             "sec-fetch-user": "?1",
