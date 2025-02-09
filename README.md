@@ -24,7 +24,7 @@
 
 ## Example - No Cookies/User-Agent
 ```js
-const getFbVideoInfo = require("fb-downloader-scrapper")
+import getFbVideoInfo from "fb-downloader-scrapper"
 
 getFbVideoInfo("https://www.facebook.com/FoodMakersBr/videos/tire-o-feij%C3%A3o-do-pote-de-sorvete-e-fa%C3%A7a-essa-receita-ainda-hoje/454262112817834/")
 .then((result)=>{
@@ -37,7 +37,7 @@ getFbVideoInfo("https://www.facebook.com/FoodMakersBr/videos/tire-o-feij%C3%A3o-
 
 ## Example - With Cookies/User-Agent (Optional)
 ```js
-const getFbVideoInfo = require("fb-downloader-scrapper")
+import getFbVideoInfo from "fb-downloader-scrapper"
 const cookies = "your-fb-cookies"
 const userAgent = "your-user-agent"
 

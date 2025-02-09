@@ -1,9 +1,16 @@
-const axios = require("axios")
-const cheerio = require("cheerio")
-const util = require("./util")
+import axios, { AxiosError } from "axios";
 
-module.exports = getFbVideoInfo = async (videoUrl, cookie, useragent)=>{
-    return new Promise((resolve, reject)=>{
+export interface FacebookResponse{
+    url: string,
+    duration_ms: number,
+    sd: string,
+    hd: string,
+    title: string,
+    thumbnail: string
+}
+
+export default async function getFbVideoInfo(videoUrl: string, cookie? : string, useragent?: string){
+    return new Promise <FacebookResponse>((resolve, reject)=>{
         const headers = {
             "sec-fetch-user": "?1",
             "sec-ch-ua-mobile": "?0",
@@ -21,7 +28,7 @@ module.exports = getFbVideoInfo = async (videoUrl, cookie, useragent)=>{
             cookie: cookie || "sb=Rn8BYQvCEb2fpMQZjsd6L382; datr=Rn8BYbyhXgw9RlOvmsosmVNT; c_user=100003164630629; _fbp=fb.1.1629876126997.444699739; wd=1920x939; spin=r.1004812505_b.trunk_t.1638730393_s.1_v.2_; xs=28%3A8ROnP0aeVF8XcQ%3A2%3A1627488145%3A-1%3A4916%3A%3AAcWIuSjPy2mlTPuZAeA2wWzHzEDuumXI89jH8a_QIV8; fr=0jQw7hcrFdas2ZeyT.AWVpRNl_4noCEs_hb8kaZahs-jA.BhrQqa.3E.AAA.0.0.BhrQqa.AWUu879ZtCw",
         }
 
-        const parseString = (string) => JSON.parse(`{"text": "${string}"}`).text;
+        const parseString = (string : string) => JSON.parse(`{"text": "${string}"}`).text;
 
         if (!videoUrl || !videoUrl.trim()) return reject("Please specify the Facebook URL");
         if (["facebook.com", "fb.watch"].every((domain) => !videoUrl.includes(domain))) return reject("Please enter the valid Facebook URL");
@@ -35,7 +42,7 @@ module.exports = getFbVideoInfo = async (videoUrl, cookie, useragent)=>{
             var duration = data.match(/"playable_duration_in_ms":[0-9]+/gm)
 
             if (sdMatch && sdMatch[1]) {
-                const result = {
+                const result : FacebookResponse = {
                     url: videoUrl,
                     duration_ms: Number(duration[0].split(":")[1]),
                     sd: parseString(sdMatch[1]),
@@ -47,12 +54,10 @@ module.exports = getFbVideoInfo = async (videoUrl, cookie, useragent)=>{
             } else {
                 reject("Unable to fetch video information at this time. Please try again")
             }
-        }).catch((err) => {
-            console.log(err)
-            reject("Unable to fetch video information at this time. Please try again")
+        }).catch((err : AxiosError) => {
+            reject(`Unable to fetch video information. Axios Error : ${err.code} - ${err.cause}`)
         })
     })
-    
 }
 
 
