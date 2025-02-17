@@ -19,12 +19,12 @@
 
 ## Instalation :
 ```bash
-> npm i --save fb-downloader-scrapper
+> npm i fb-downloader-scrapper@latest
 ```
 
-## Example - No Cookies/User-Agent
+## Example - ESM
 ```js
-import getFbVideoInfo from "fb-downloader-scrapper"
+import { getFbVideoInfo } from "fb-downloader-scrapper"
 
 getFbVideoInfo("https://www.facebook.com/FoodMakersBr/videos/tire-o-feij%C3%A3o-do-pote-de-sorvete-e-fa%C3%A7a-essa-receita-ainda-hoje/454262112817834/")
 .then((result)=>{
@@ -35,13 +35,11 @@ getFbVideoInfo("https://www.facebook.com/FoodMakersBr/videos/tire-o-feij%C3%A3o-
 
 ```
 
-## Example - With Cookies/User-Agent (Optional)
+## Example - CommonJS
 ```js
-import getFbVideoInfo from "fb-downloader-scrapper"
-const cookies = "your-fb-cookies"
-const userAgent = "your-user-agent"
+const { getFbVideoInfo } =  require("fb-downloader-scrapper")
 
-getFbVideoInfo("https://www.facebook.com/FoodMakersBr/videos/tire-o-feij%C3%A3o-do-pote-de-sorvete-e-fa%C3%A7a-essa-receita-ainda-hoje/454262112817834/", cookies, userAgent)
+getFbVideoInfo("https://www.facebook.com/FoodMakersBr/videos/tire-o-feij%C3%A3o-do-pote-de-sorvete-e-fa%C3%A7a-essa-receita-ainda-hoje/454262112817834/")
 .then((result)=>{
     console.log(result)
 }).catch((err)=>{
