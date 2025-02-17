@@ -2,12 +2,28 @@
   "name": "fb-downloader-scrapper",
   "version": "2.1.0",
   "description": "Scrap easily video info and direct url data from Facebook",
-  "main": "dist/facebook.js",
+  "main": "dist/esm/facebook.js",
+  "types": "dist/types/facebook.d.ts",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "start": "node dist/facebook.js",
-    "prestart": "npm run build",
-    "build": "tsc"
+    "prepublishOnly": "npm run build",
+    "build": "tsc",
+    "postbuild": "esm2cjs --in dist/esm --out dist/cjs -l error"
+  },
+  "exports": {
+    ".": {
+      "require": {
+        "default": "./dist/cjs/facebook.js"
+      },
+      "import": {
+        "default": "./dist/esm/facebook.js"
+      },
+      "types": "./dist/types/facebook.d.ts"
+    },
+    "./package.json": "./package.json"
   },
   "repository": {
     "type": "git",
@@ -31,7 +47,9 @@
     "axios": "^1.7.9"
   },
   "devDependencies": {
+    "@alcalzone/esm2cjs": "^1.4.1",
     "@types/node": "^22.13.1",
+    "tsc-alias": "^1.8.10",
     "typescript": "^5.7.3"
   }
 }

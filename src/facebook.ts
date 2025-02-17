@@ -9,7 +9,7 @@ export interface FacebookResponse{
     thumbnail: string
 }
 
-export default async function getFbVideoInfo(videoUrl: string, cookie? : string, useragent?: string){
+export async function getFbVideoInfo(videoUrl: string, cookie? : string, useragent?: string){
     return new Promise <FacebookResponse>((resolve, reject)=>{
         const headers = {
             "sec-fetch-user": "?1",
