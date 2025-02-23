@@ -1,6 +1,6 @@
 {
   "name": "fb-downloader-scrapper",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Scrap easily video info and direct url data from Facebook",
   "main": "dist/facebook.js",
   "types": "dist/types/facebook.d.ts",
